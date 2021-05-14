@@ -26,11 +26,11 @@ class GuildTag{
 
 mongoose.connect(process.env.MONGO_URI, {
 	useUnifiedTopology: true,
-    connectTimeoutMS: 10000,
-    useNewUrlParser: true,
-    autoIndex: false,
-    poolSize: 5,
-    family: 4
+	connectTimeoutMS: 10000,
+	useNewUrlParser: true,
+	autoIndex: false,
+	poolSize: 5,
+	family: 4
 });
 
 mongoose.set('useFindAndModify', false);
@@ -91,11 +91,26 @@ Structures.extend('Message', DJSMessage => class Message extends DJSMessage{
             .post({ data, files })
             .then(d => this.client.actions.MessageCreate.handle(d).message);
     }
-})
+});
+
+Structures.extend('User', User => class extends User{
+	constructor(client, data){
+		super(client, data);
+		this.violations = new Collection();
+	};
+});
 
 client.on('message', async(message) => {
 	if (message.author.bot || message.type === 'dm' || !message.member.roles.cache.has(process.env.AUTHORIZED_ROLE) || message.guild.id !== process.env.GUILD_ID){
 		return;
+	};
+	
+	if (message.channel.id === '780565988559028245' && !message.attachments.first()?.width)){
+	        message.delete();
+	        if (!message.author.violations.get('image') || message.author.violations.get('image') < Date.now()){
+	                message.author.send('<:mai_peek:774202712534941716> **Hiyaaa! Mai\'s Maid Here!**\n\nSeems like you sent a message on <#780565988559028245> without actually sending an image alongside that message. If you didn\'t know, we discourage users to chat on that channel. You can read more about it on the channel topic. Messaging you in case you didn\'t know or have forgotten about it. And oh! I also deleted the message you sent on that channel!~\n\nNYAAAAAWRR!', { files: [{ attachment: 'https://i.imgur.com/QiUovdw.png', name: 'rawr.png' }]}).catch(()=>{});
+	        };
+	        message.author.violations.set('image', Date.now() + 18e5);
 	};
 	
 	const [ command = '', subcommand = '', tagname = '', ...parameter] = message.content.split(/ +/);

@@ -105,7 +105,7 @@ client.on('message', async(message) => {
 		return;
 	};
 	
-	if (message.channel.id === '780565988559028245' && !message.attachments.first()?.width)){
+	if (message.channel.id === '780565988559028245' && !message.attachments.first()?.width){
 	        message.delete();
 	        if (!message.author.violations.get('image') || message.author.violations.get('image') < Date.now()){
 	                message.author.send('<:mai_peek:774202712534941716> **Hiyaaa! Mai\'s Maid Here!**\n\nSeems like you sent a message on <#780565988559028245> without actually sending an image alongside that message. If you didn\'t know, we discourage users to chat on that channel. You can read more about it on the channel topic. Messaging you in case you didn\'t know or have forgotten about it. And oh! I also deleted the message you sent on that channel!~\n\nNYAAAAAWRR!', { files: [{ attachment: 'https://i.imgur.com/QiUovdw.png', name: 'rawr.png' }]}).catch(()=>{});

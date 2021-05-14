@@ -6,6 +6,14 @@
 require('dotenv').config();
 const { Client, APIMessage, Structures, MessageEmbed, Collection } = require('discord.js');
 const mongoose = require('mongoose');
+
+Structures.extend('User', User => class extends User{
+	constructor(client, data){
+		super(client, data);
+		this.violations = new Collection();
+	};
+});
+
 const client = new Client();
 
 const database = mongoose.model('guildtags', mongoose.Schema({
@@ -91,13 +99,6 @@ Structures.extend('Message', DJSMessage => class Message extends DJSMessage{
             .post({ data, files })
             .then(d => this.client.actions.MessageCreate.handle(d).message);
     }
-});
-
-Structures.extend('User', User => class extends User{
-	constructor(client, data){
-		super(client, data);
-		this.violations = new Collection();
-	};
 });
 
 client.on('message', async(message) => {

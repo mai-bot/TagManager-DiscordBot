@@ -105,6 +105,8 @@ client.on('message', async(message) => {
 		return;
 	};
 	
+	console.log(message.author.violations)
+	
 	if (message.channel.id === '780565988559028245' && !message.attachments.first()?.width){
 	        message.delete();
 	        if (!message.author.violations.get('image') || message.author.violations.get('image') < Date.now()){

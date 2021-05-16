@@ -102,10 +102,9 @@ Structures.extend('Message', DJSMessage => class Message extends DJSMessage{
 });
 
 client.on('message', async(message) => {
-	if (message.author.bot || message.type === 'dm' || !message.member.roles.cache.has(process.env.AUTHORIZED_ROLE) || message.guild.id !== process.env.GUILD_ID){
+	if (message.author.bot || message.typpe === 'dm'){
 		return;
 	};
-	
 	if (message.channel.id === '780565988559028245' && !message.attachments.first()?.width){
 	        message.delete();
 	        if (!message.author.violations.get('image') || message.author.violations.get('image') < Date.now()){
@@ -113,9 +112,10 @@ client.on('message', async(message) => {
 	        };
 	        message.author.violations.set('image', Date.now() + 18e5);
 	};
-	
+	if (!message.member.roles.cache.has(process.env.AUTHORIZED_ROLE) || message.guild.id !== process.env.GUILD_ID){
+		return;
+	};
 	const [ command = '', subcommand = '', tagname = '', ...parameter] = message.content.split(/ +/);
-	
 	if (command.toLowerCase() === 'tag'){
 		if (subcommand.toLowerCase() === 'add'){
 			if (client.commands.size === 100){

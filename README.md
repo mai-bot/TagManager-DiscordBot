@@ -16,6 +16,7 @@ MONGO_URI=mongodb+srv://super_hideous_user:super_secret_password@cluster0.****.m
 DISCORD_TOKEN=NTk5Mjc0MzY1NTAyMDk1Mzcw.XSizvg.ecj2ZM5jy68kPWKhY**********
 GUILD_ID=59002493**********
 AUTHORIZED_ROLE=83276051**********
+IMAGE_CHANNEL=9199828*******
 ``` 
 7. Invite your bot to your server bearing the `bot` and `application.commands` scopes. Generate the invlite link in the OAuth2 URL Generator under the OAuth2 category.
 8. Install the dependencies through `npm install` and launch the bot via the command `node index.js` on terminal.

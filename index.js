@@ -102,7 +102,7 @@ Structures.extend('Message', DJSMessage => class Message extends DJSMessage{
 });
 
 client.on('message', async(message) => {
-	if (message.author.bot || message.typpe === 'dm'){
+	if (message.author.bot || message.type === 'dm'){
 		return;
 	};
 	if (message.channel.id === '780565988559028245' && !message.attachments.first()?.width){
